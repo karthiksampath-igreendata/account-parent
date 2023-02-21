@@ -29,7 +29,7 @@ public class AccountingCommandService implements IAccountingCommandService {
 		Account response = null;
 		try {
 			if (account != null) {
-				if (isUserAuthorised() && validateAccount()) {
+				if (isUserAuthorised() && validate()) {
 					account.setCreated(LocalDateTime.now());
 					response = accountRepository.save(account);
 				}
@@ -47,7 +47,7 @@ public class AccountingCommandService implements IAccountingCommandService {
 		return true;
 	}
 
-	private boolean validateAccount() {
+	private boolean validate() {
 		// Account or Transaction information can be validated to ensure details are
 		// reliable before
 		// persisting the record. Out of scope for the current proceedings
@@ -59,7 +59,7 @@ public class AccountingCommandService implements IAccountingCommandService {
 		Transaction response = null;
 		try {
 			if (transaction != null) {
-				if (isUserAuthorised() && validateAccount()) {
+				if (isUserAuthorised() && validate()) {
 					transaction.setCreated(LocalDateTime.now());
 					response = transactionRepository.save(transaction);
 				}
