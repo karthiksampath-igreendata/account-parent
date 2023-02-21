@@ -1,5 +1,7 @@
 package com.anz.wholesale.account.controller;
 
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +39,13 @@ public class AccountingCommandController {
 			throws AccountingException {
 		AccountingResponse<Account> response = new AccountingResponse<>();
 
-		if (account == null) {
+		if (Objects.isNull(account)) {
 			logger.error(Constants.VALID_INPUT_REQUIRED);
 			throw new AccountingNoDatException(Constants.VALID_INPUT_REQUIRED);
 		}
 
 		Account resAccount = accountingCommandService.persistAccount(account);
-		if (resAccount == null) {
+		if (Objects.isNull(resAccount)) {
 			logger.error("Exception while creating Account!!");
 			throw new AccountingException("Exception while creating Account!!");
 		}
@@ -59,13 +61,13 @@ public class AccountingCommandController {
 			throws AccountingException {
 		AccountingResponse<Transaction> response = new AccountingResponse<>();
 
-		if (transaction == null) {
+		if (Objects.isNull(transaction)) {
 			logger.error(Constants.VALID_INPUT_REQUIRED);
 			throw new AccountingNoDatException(Constants.VALID_INPUT_REQUIRED);
 		}
 
 		Transaction resTrans = accountingCommandService.persistTransaction(transaction);
-		if (resTrans == null) {
+		if (Objects.isNull(resTrans)) {
 			logger.error("Exception while creating transaction!!");
 			throw new AccountingException("Exception while creating transaction!!");
 		}

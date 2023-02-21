@@ -65,8 +65,8 @@ public class AccountingCommandService implements IAccountingCommandService {
 				}
 			}
 		} catch (Exception exception) {
-			logger.error("Error while persisting account info");
-			throw new AccountingException("Error while persisting account info");
+			logger.error("Error while persisting transaction info");
+			throw new AccountingException("Error while persisting transaction info");
 		}
 		return response;
 	}
