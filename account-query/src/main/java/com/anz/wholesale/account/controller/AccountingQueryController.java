@@ -1,6 +1,7 @@
 package com.anz.wholesale.account.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.anz.wholesale.account.domain.Account;
 import com.anz.wholesale.account.domain.AccountingResponse;
 import com.anz.wholesale.account.domain.ResponseStatus;
 import com.anz.wholesale.account.domain.Transaction;
+import com.anz.wholesale.account.exception.AccountingException;
 import com.anz.wholesale.account.exception.AccountingNoDatException;
 import com.anz.wholesale.account.service.IAccountingQueryService;
 import com.anz.wholesale.account.util.Constants;
@@ -59,11 +61,15 @@ public class AccountingQueryController {
 	 * @param accountId
 	 * @return
 	 */
-	@ApiOperation(notes = "Retrieves List of Transactions and related information based on Account", produces = MediaType.APPLICATION_JSON_VALUE, value = "Account Details")
+	@ApiOperation(notes = "Retrieves List of Transactions and related information based on Account", produces = MediaType.APPLICATION_JSON_VALUE, value = "Transaction Details")
 	@GetMapping(value = "/transactions/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AccountingResponse<List<Transaction>>> getTransactionsByAccount(
 			@PathVariable("accountId") Long accountId) {
 		AccountingResponse<List<Transaction>> response = new AccountingResponse<>();
+		if(Objects.isNull(accountId)) {
+			logger.error(Constants.VALID_INPUT_REQUIRED);
+			throw new AccountingException(Constants.VALID_INPUT_REQUIRED);
+		}
 		List<Transaction> transactions = accountingQueryService.retrieveTransactionsByAccount(accountId);
 		if (CollectionUtils.isEmpty(transactions)) {
 			logger.error(Constants.NO_TRANSACTION_FOUND);

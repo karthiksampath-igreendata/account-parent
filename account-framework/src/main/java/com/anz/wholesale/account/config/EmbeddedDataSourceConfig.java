@@ -11,9 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 public class EmbeddedDataSourceConfig {
 	@Bean
 	public DataSource dataSource() {
-
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.HSQL).setName("accounting_db").addScript("scripts/sql/create.sql")
-				.addScript("scripts/sql/insert.sql").build();
+		return builder.setType(EmbeddedDatabaseType.HSQL).setName("accounting_db").build();
 	}
 }
