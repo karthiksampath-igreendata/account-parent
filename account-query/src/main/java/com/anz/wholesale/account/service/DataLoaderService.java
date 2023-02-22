@@ -35,35 +35,6 @@ public class DataLoaderService {
 	@Autowired
 	Environment env;
 
-	public Account persistAccount(Account account) {
-		Account response = null;
-		try {
-			if (account != null) {
-				account.setCreated(LocalDateTime.now());
-				response = accountRepository.save(account);
-			}
-		} catch (Exception exception) {
-			logger.error("Error while persisting account info");
-			throw new AccountingException("Error while persisting account info");
-		}
-		return response;
-	}
-
-	public Transaction persistTransaction(Transaction transaction) {
-		Transaction response = null;
-		try {
-			if (transaction != null) {
-				transaction.setCreated(LocalDateTime.now());
-				response = transactionRepository.save(transaction);
-			}
-
-		} catch (Exception exception) {
-			logger.error("Error while persisting transactions info");
-			throw new AccountingException("Error while persisting transactions info");
-		}
-		return response;
-	}
-
 	public void loadDataToDB() {
 		if (!Arrays.asList(env.getActiveProfiles()).contains("mysql")) {
 			logger.info("Load Sample Test Data");
